@@ -1,0 +1,175 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.EliminarReservacionModel
+@{
+    ViewData["Title"] = "Eliminar Reservación";
+}
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-center">Eliminar Reservación</h1>
+
+    @if (Model.Reservaciones.Any())
+    {
+        <table class="table">
+            <h1>Lista de Reservas</h1>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Cédula de Identidad</th>
+                    <th>Nacionalidad</th>
+                    <th>Teléfono</th>
+                    <th>Correo Electrónico</th>
+                    <th>Hotel</th>
+                    <th>Torre</th>
+                    <th>Piso</th>
+                    <th>Número de Habitación</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservacion in Model.Reservaciones)
+                {
+                    var datosReservacion = reservacion.Split(',');
+                    <tr>
+                        <td>@datosReservacion[0]</td>
+                        <td>@datosReservacion[1]</td>
+                        <td>@datosReservacion[3]</td>
+                        <td>@datosReservacion[4]</td>
+                        <td>@datosReservacion[5]</td>
+                        <td>@datosReservacion[6]</td>
+                        <td>@datosReservacion[7]</td>
+                        <td>@datosReservacion[8]</td>
+                        <td>@datosReservacion[9]</td>
+                        <td>@datosReservacion[10]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="no-reservaciones">No hay reservaciones disponibles.</p>
+    }
+
+    <form method="post" class="m-3 p-3 border border-primary" asp-page-handler="EliminarReservacion">
+        <div class="form-group">
+            <label for="cedulaIdentidad">Cédula de Identidad:</label>
+            <input type="text" id="cedulaIdentidad" name="CedulaIdentidad" onchange="validarCedula(this)" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione una cédula de identidad válida.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hotel">Seleccionar Hotel:</label>
+            <select id="hotel" name="Hotel" class="form-control">
+                <option value="Hotel Continental de New York">Hotel Continental de New York</option>
+                <option value="Hotel Continental de Roma">Hotel Continental de Roma</option>
+                <option value="Hotel Continental de Marruecos">Hotel Continental de Marruecos</option>
+                <option value="Hotel Continental de Osaka Tokyo">Hotel Continental de Osaka Tokyo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Eliminar Reservación</button>
+        </div>
+    </form>
+
+    <form method="post" class="m-3 p-3 border border-primary" asp-page-handler="EliminarTodasReservaciones">
+        <div class="form-group">
+            <label for="hotelEliminar">Eliminar todas las reservaciones en el hotel:</label>
+            <select id="hotelEliminar" name="Hotel" class="form-control">
+                <option value="Hotel Continental de New York">Hotel Continental de New York</option>
+                <option value="Hotel Continental de Roma">Hotel Continental de Roma</option>
+                <option value="Hotel Continental de Marruecos">Hotel Continental de Marruecos</option>
+                <option value="Hotel Continental de Osaka Tokyo">Hotel Continental de Osaka Tokyo</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Eliminar Todas las Reservaciones en el Hotel</button>
+        </div>
+    </form>
+
+    <form method="post" class="m-3 p-3 border border-primary" asp-page-handler="EliminarTodasReservacionesPorPersona">
+        <div class="form-group">
+            <label for="cedulaIdentidadEliminar">Cédula de Identidad:</label>
+            <input type="text" id="cedulaIdentidadEliminar" name="CedulaIdentidad" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Eliminar Todas las Reservaciones por Persona</button>
+        </div>
+    </form>
+
+    
+
+    <style>
+        /* Estilos para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        /* Estilos para el mensaje de "No hay reservaciones disponibles" */
+        .no-reservaciones {
+            font-size: 18px;
+            color: #777;
+        }
+    </style>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var forms = document.querySelectorAll('.needs-validation');
+
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList add('was-validated');
+                }, false);
+            });
+        })();
+
+        function validarCedula(input) {
+            var cedula = input.value.trim();
+            var cedulaRegex = /^[1-9]-\d{4}-\d{4}$/;
+            var errorMessageClass = 'error-message';
+
+            // Elimina el mensaje de error anterior si existe
+            var existingError = input.parentNode.querySelector(`.${errorMessageClass}`);
+            if (existingError) {
+                existingError.remove();
+            }
+
+            if (!cedula.match(cedulaRegex)) {
+                var errorMessage = document.createElement('div');
+                errorMessage.textContent = "El formato de la cédula de identidad es incorrecto. Debe tener el formato 'X-XXXX-XXXX'. Además, solo del 1-9 en el primer dígito se acepta.";
+                errorMessage.classList.add(errorMessageClass);
+                input.parentNode.appendChild(errorMessage);
+                input.value = '';
+            }
+        }
+    </script>
+</div>

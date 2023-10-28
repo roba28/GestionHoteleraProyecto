@@ -1,1 +1,3 @@
-﻿a,a,a,7-0202-0202,a,a,a,Hotel Continental de New York,02,05,10
+Pablo,Vilchex,Barrantes,1-1695-0202,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,04,04
+Steven,Vilchex,Barrantes,1-1695-0203,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,04,03
+mari,jimenez,sandoval,1-0205-0896,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,03,10

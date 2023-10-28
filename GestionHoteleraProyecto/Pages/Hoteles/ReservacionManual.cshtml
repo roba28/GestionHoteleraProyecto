@@ -1,0 +1,135 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.ReservacionManualModel
+@{
+    ViewData["Title"] = "Reservación Manual";
+}
+
+<style>
+    .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 0.25rem;
+    }
+</style>
+
+
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-center">Registrar Reservación Manual</h1>
+
+    <form method="post" class="m-3 p-3 border border-primary needs-validation" novalidate>
+        <div class="form-group">
+            <label for="nombreHotel">Seleccione un hotel:</label>
+            <select id="nombreHotel" name="nombreHotel" class="form-control" required>
+                <option value="Hotel Continental de New York">Hotel Continental de New York</option>
+                <option value="Hotel Continental de Roma">Hotel Continental de Roma</option>
+                <option value="Hotel Continental de Marruecos">Hotel Continental de Marruecos</option>
+                <option value="Hotel Continental de Osaka Tokyo">Hotel Continental de Osaka Tokyo</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="Nombre" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, complete este campo.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="primerApellido">Primer Apellido:</label>
+            <input type="text" id="primerApellido" name="PrimerApellido" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, complete este campo.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="segundoApellido">Segundo Apellido:</label>
+            <input type="text" id="segundoApellido" name="SegundoApellido" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, complete este campo.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cedulaIdentidad">Cédula de Identidad:</label>
+            <input type="text" id="cedulaIdentidad" name="CedulaIdentidad" onchange="validarCedula(this)" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione una cédula de identidad válida.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="nacionalidad">Nacionalidad:</label>
+            <input type="text" id="nacionalidad" name="Nacionalidad" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, complete este campo.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="Telefono" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, complete este campo.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="correoElectronico">Correo Electrónico:</label>
+            <input type="text" id="correoElectronico" name="CorreoElectronico" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione un correo electrónico válido.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="torre">Torre:</label>
+            <input type="text" id="torre" name="Torre" maxlength="2" minlength="1" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione un número de torre válido.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="piso">Piso:</label>
+            <input type="text" id="piso" name="Piso" maxlength="2" minlength="1" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione un número de piso válido.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="numeroHabitacion">Número de Habitación:</label>
+            <input type="text" id="numeroHabitacion" name="NumeroHabitacion" maxlength="2" minlength="1" class="form-control" required>
+            <div class="invalid-feedback">
+                Proporcione un número de habitación válido.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Guardar Reservación</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    (function () {
+        'use strict';
+
+        var forms = document.querySelectorAll('.needs-validation');
+
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+
+    
+</script>

@@ -1,0 +1,31 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.HabitacionesNewYorkModel
+@{
+    ViewData["Title"] = "Habitaciones Disponibles en Hotel Continental de New York";
+}
+
+<h1>Habitaciones Disponibles en Hotel Continental de New York</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Torre</th>
+            <th>Piso</th>
+            <th>Habitación</th>
+            <th>Disponibilidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var habitacion in Model.HabitacionesDisponibles)
+        {
+            <tr>
+                <td>@habitacion.Nombre</td>
+                <td>@habitacion.Torre</td>
+                <td>@habitacion.Piso</td>
+                <td>@habitacion.NumeroHabitacion</td>
+                <td>@(habitacion.Disponibilidad ? "Disponible" : "No disponible")</td>
+            </tr>
+        }
+    </tbody>
+</table>

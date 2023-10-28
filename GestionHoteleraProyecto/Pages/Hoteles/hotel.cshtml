@@ -1,0 +1,52 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.hotelModel
+@{
+    ViewData["Title"] = "Hoteles";
+}
+
+<h1 class="text-center my-4">Los hoteles de la cadena son los siguientes</h1>
+
+<h2 class="text-center mb-4">Selecciona un hotel para ver habitaciones disponibles:</h2>
+
+<div class="row row-cols-1 row-cols-md-2 g-4 mx-3">
+    <div class="col-md-6 col-lg-4">
+        <a asp-page="./HabitacionesNewYork" asp-route-hotel="NewYork" class="card text-center border border-primary">
+            <img src="~/Imagenes/HotelNewYork.jpg" class="card-img-top rounded" alt="Hotel NewYork" style="height:200px;">
+            <div class="card-body">
+                <p class="card-text h4 text-dark">Hotel Continental de New York</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a asp-page="./HabitacionesRoma" asp-route-hotel="Roma" class="card text-center border border-primary">
+            <img src="~/Imagenes/HotelRoma.jpg" class="card-img-top rounded" alt="Hotel Roma" style="height:200px;">
+            <div class="card-body">
+                <p class="card-text h4 text-dark">Hotel Continental de Roma</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a asp-page="./HabitacionesMarruecos" asp-route-hotel="Marruecos" class="card text-center border border-primary">
+            <img src="~/Imagenes/HotelMarruecos.jpg" class="card-img-top rounded" alt="Hotel Marruecos" style="height:200px;">
+            <div class="card-body">
+                <p class="card-text h4 text-dark">Hotel Continental de Marruecos</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a asp-page="./HabitacionesTokyo" asp-route-hotel="Tokyo" class="card text-center border border-primary">
+            <img src="~/Imagenes/HotelTokyo.jpg" class="card-img-top rounded" alt="Hotel Tokyo" style="height:200px;">
+            <div class="card-body">
+                <p class="card-text h4 text-dark">Hotel Continental de Osaka Tokyo</p>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <a asp-page="./Hoteles" asp-route-hotel="Todos los hoteles" class="card text-center border border-primary">
+            <img src="~/Imagenes/Todos.jpg" class="card-img-top rounded" alt="Todos los hoteles" style="height:200px;">
+            <div class="card-body">
+                <p class="card-text h4 text-dark">Todos los hoteles</p>
+            </div>
+        </a>
+    </div>
+</div>

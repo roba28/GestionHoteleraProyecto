@@ -1,0 +1,30 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.ReservacionModel
+@{
+    ViewData["Title"] = "Reservaciones";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center">Tipo de Reservación</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6 text-center">
+            <a asp-page="/Hoteles/ReservacionManual" class="text-decoration-none">
+                <div>
+                    <img src="~/Imagenes/Manual.png" alt="Reservación Manual" style="width:200px; height:200px;">
+                    <p>Reservación Manual</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 text-center">
+            <a asp-page="/Hoteles/ReservacionAutomatica" class="text-decoration-none">
+                <div>
+                    <img src="~/Imagenes/Automatica.png" alt="Reservación Automática" style="width:200px; height:200px;">
+                    <p>Reservación Automática</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <a href="#" class="btn btn-primary position-fixed top-0 end-0 m-3">Administrar</a>
+</div>

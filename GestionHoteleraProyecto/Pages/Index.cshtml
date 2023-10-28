@@ -4,7 +4,66 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .hotel-image {
+        height: 200px; /* Altura fija para todas las imágenes */
+        object-fit: cover; /* Ajuste la imagen para cubrir el contenedor */
+    }
+</style>
+
+<div class="container-fluid text-center mt-5">
+    <h1>¡Bienvenido a la Cadena Continental!</h1>
+    <hr class="my-4">
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <img src="~/Imagenes/HotelNewYork.jpg" class="card-img-top hotel-image" alt="Hotel 1">
+                <div class="card-body">
+                    <h5 class="card-title">Hotel Continental NewYork</h5>
+                    <a href="/Hoteles/Reservacion" class="btn btn-primary">Reservar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <img src="~/Imagenes/HotelRoma.jpg" class="card-img-top hotel-image" alt="Hotel 2">
+                <div class="card-body">
+                    <h5 class="card-title">Hotel Continental Roma</h5>
+                    <a href="/Hoteles/Reservacion" class="btn btn-primary">Reservar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <img src="~/Imagenes/HotelMarruecos.jpg" class="card-img-top hotel-image" alt="Hotel 3">
+                <div class="card-body">
+                    <h5 class="card-title">Hotel Continental Marruecos</h5>
+                    <a href="/Hoteles/Reservacion" class="btn btn-primary">Reservar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+                <img src="~/Imagenes/HotelTokyo.jpg" class="card-img-top hotel-image" alt="Hotel 4">
+                <div class="card-body">
+                    <h5 class="card-title">Hotel Continental Osaka Tokyo</h5>
+                    <a href="/Hoteles/Reservacion" class="btn btn-primary">Reservar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 text-center">
+    <h2>Vista previa de nuestras instalaciones</h2>
+    <video width="100%" height="auto" controls>
+        <source src="~/Imagenes/Hotel.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 </div>

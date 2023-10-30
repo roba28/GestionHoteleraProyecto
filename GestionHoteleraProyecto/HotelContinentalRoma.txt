@@ -92,8 +92,8 @@ Hotel Continental de Roma,02,05,01,1
 Hotel Continental de Roma,02,05,02,1
 Hotel Continental de Roma,02,05,03,1
 Hotel Continental de Roma,02,05,04,1
-Hotel Continental de Roma,02,05,05,1
-Hotel Continental de Roma,02,05,06,1
+Hotel Continental de Roma,02,05,05,0
+Hotel Continental de Roma,02,05,06,0
 Hotel Continental de Roma,02,05,07,0
 Hotel Continental de Roma,02,05,08,0
 Hotel Continental de Roma,02,05,09,0

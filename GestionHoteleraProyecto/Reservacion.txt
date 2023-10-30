@@ -1,3 +1,13 @@
-Pablo,Vilchex,Barrantes,1-1695-0202,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,04,04
-Steven,Vilchex,Barrantes,1-1695-0203,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,04,03
-mari,jimenez,sandoval,1-0205-0896,Costarricense,72396132,kyran09.97@gmail.com,Hotel Continental de New York,02,03,10
+Hannyer,Pitterson,Martínez,4-0240-0637,Costarricense,6011777,han@gmail.com,Hotel Continental de Roma,02,05,06
+Juan,Perez,Perez,4-0323-0323,Costarricense,69003411,jperez722@gmail.com,Hotel Continental de Roma,02,05,05
+Melissa,Rojas,Perez,4-0323-0323,Costarricense,78532891,mel.rojas_16@gmail.com,Hotel Continental de Roma,02,02,05
+Karen,Perez,Díaz,4-0323-0323,Costarricense,89001001,karen.perez@gmail.com,Hotel Continental de Roma,02,05,05
+Jose,Rosales,Noguera,5-0993-0675,Costarricense,81764531,jrosales@gmail.com,Hotel Continental de Roma,02,05,02
+Kattia,Madrigal,Leal,4-0593-0200,Costarricense,7895611,kat_m@gmail.com,Hotel Continental de Roma,02,05,04
+Jorge,Rodríguez,Castro,3-0132-0823,Costarricense,89097867,jrodriguez100@gmail.com,Hotel Continental de Roma,02,04,02
+Andres,Ramirez,Montoya,1-0109-0320,Costarricense,64546600,andres.ramirez@gmail.com,Hotel Continental de Roma,02,03,02
+Alfredo,Brenes,Gómez,1-0963-0598,Costarricense,60728972,abrenes_02@gmail.com,Hotel Continental de Roma,02,01,02
+Karol,Díaz,Ulate,7-0289-0843,Costarricense,60117773,kdu@hotmail.com,Hotel Continental de Roma,02,03,03
+Jorge,Rodríguez,Castro,3-0132-0823,Costarricense,60117773,jrodriguez100@gmail.com,Hotel Continental Marruecos,02,03,20
+Jorge,Rodríguez,Castro,3-0132-0823,Costarricense,89097867,jrodriguez100@gmail.com,Hotel Continental de Osaka,02,05,28
+Alfredo,Brenes,Gómez,1-0963-0598,Costarricense,60728972,abrenes_02@gmail.com,Hotel Continental Marruecos,02,02,10

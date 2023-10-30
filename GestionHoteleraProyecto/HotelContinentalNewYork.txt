@@ -76,7 +76,7 @@ Hotel Continental de New York,02,03,05,1
 Hotel Continental de New York,02,03,06,1
 Hotel Continental de New York,02,03,07,1
 Hotel Continental de New York,02,03,08,1
-Hotel Continental de New York,02,03,09,1
+Hotel Continental de New York,02,03,09,0
 Hotel Continental de New York,02,03,10,0
 Hotel Continental de New York,02,04,01,0
 Hotel Continental de New York,02,04,02,0

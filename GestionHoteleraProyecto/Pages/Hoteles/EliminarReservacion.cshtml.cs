@@ -121,6 +121,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
             {
                 Reservaciones = System.IO.File.ReadAllLines(pathReservacion).ToList();
             }
+            
         }
 
         private bool ValidarCedula(string cedula)

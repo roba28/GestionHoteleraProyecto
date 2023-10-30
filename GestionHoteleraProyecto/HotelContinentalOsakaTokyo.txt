@@ -20,7 +20,7 @@ Hotel Continental de Osaka Tokyo,01,02,09,1
 Hotel Continental de Osaka Tokyo,01,02,10,1
 Hotel Continental de Osaka Tokyo,01,03,01,1
 Hotel Continental de Osaka Tokyo,01,03,02,1
-Hotel Continental de Osaka Tokyo,01,03,03,1
+Hotel Continental de Osaka Tokyo,01,03,03,0
 Hotel Continental de Osaka Tokyo,01,03,04,1
 Hotel Continental de Osaka Tokyo,01,03,05,1
 Hotel Continental de Osaka Tokyo,01,03,06,1
@@ -95,6 +95,6 @@ Hotel Continental de Osaka Tokyo,02,05,04,1
 Hotel Continental de Osaka Tokyo,02,05,05,1
 Hotel Continental de Osaka Tokyo,02,05,06,1
 Hotel Continental de Osaka Tokyo,02,05,07,1
-Hotel Continental de Osaka Tokyo,02,05,08,1
+Hotel Continental de Osaka Tokyo,02,05,08,0
 Hotel Continental de Osaka Tokyo,02,05,09,0
 Hotel Continental de Osaka Tokyo,02,05,10,0

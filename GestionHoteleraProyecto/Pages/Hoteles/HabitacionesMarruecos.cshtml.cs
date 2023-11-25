@@ -14,7 +14,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
             HabitacionesDisponibles = new List<Habitacion>();
 
-            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
             string queryString = "SELECT * FROM Habitaciones WHERE Nombre = 'Hotel Continental de Marruecos'";
 
             using (SqlConnection connection = new SqlConnection(connectionString))

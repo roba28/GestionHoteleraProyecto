@@ -18,6 +18,18 @@
     <h1 class="mt-4 mb-4 text-center">Registrar Reservación Automatica</h1>
 
     <form method="post" class="m-3 p-3 border border-primary needs-validation" novalidate>
+        @if ((TempData["Mensaje"] != null) && (TempData["tipo"] == "error"))
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Mensaje"]
+            </div>
+        }
+        else if ((TempData["Mensaje"] != null) && (TempData["tipo"] == "Ok"))
+        {
+            <div class="alert alert-info" role="alert">
+                @TempData["Mensaje"]
+            </div>
+        }
         <div class="form-group">
             <label for="nombreHotel">Seleccione un hotel:</label>
             <select id="nombreHotel" name="nombreHotel" class="form-control" required>
@@ -89,12 +101,8 @@
         </div>
 
         <br />
-        @if (TempData["Mensaje"] != null)
-        {
-            <div class="alert alert-danger" role="alert">
-                @TempData["Mensaje"]
-            </div>
-        }
+      
+        
     </form>
 </div>
 

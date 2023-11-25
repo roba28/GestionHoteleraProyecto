@@ -26,7 +26,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             // Consulta SQL para eliminar reservaciones con la cédula e hotel especificados
             string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad AND NombreHotel = @NombreHotel";
@@ -60,7 +60,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
         public IActionResult OnPostEliminarTodasReservaciones(string hotel)
         {
-            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             // Consulta SQL para eliminar todas las reservaciones
             string deleteQuery = (hotel.ToLower() == "todos")
@@ -106,7 +106,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             // Consulta SQL para eliminar todas las reservaciones de una persona
             string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad";
@@ -146,7 +146,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
             Reservaciones = new List<string>();
 
-            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             string queryString = "SELECT Nombre, PrimerApellido, SegundoApellido, CedulaIdentidad, Nacionalidad, Telefono, CorreoElectronico, NombreHotel, Torre, Piso, NumeroHabitacion FROM Reservaciones";
 

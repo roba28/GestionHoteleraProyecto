@@ -86,7 +86,10 @@
 
         <div class="form-group">
             <label for="torre">Torre:</label>
-            <input type="text" id="torre" name="Torre" maxlength="2" minlength="1" class="form-control" required>
+            <select id="torre" name="Torre" class="form-control" required>
+                <option value="1">Torre 1</option>
+                <option value="2">Torre 2</option>
+            </select>
             <div class="invalid-feedback">
                 Proporcione un número de torre válido.
             </div>
@@ -94,7 +97,13 @@
 
         <div class="form-group">
             <label for="piso">Piso:</label>
-            <input type="text" id="piso" name="Piso" maxlength="2" minlength="1" class="form-control" required>
+            <select id="piso" name="Piso" class="form-control" required>
+                <option value="1">Piso 1</option>
+                <option value="2">Piso 2</option>
+                <option value="3">Piso 3</option>
+                <option value="4">Piso 4</option>
+                <option value="5">Piso 5</option>
+            </select>
             <div class="invalid-feedback">
                 Proporcione un número de piso válido.
             </div>
@@ -102,16 +111,35 @@
 
         <div class="form-group">
             <label for="numeroHabitacion">Número de Habitación:</label>
-            <input type="text" id="numeroHabitacion" name="NumeroHabitacion" maxlength="2" minlength="1" class="form-control" required>
+            <select id="numeroHabitacion" name="NumeroHabitacion" class="form-control" required>
+                <option value="1">Habitación 1</option>
+                <option value="2">Habitación 2</option>
+                <option value="3">Habitación 3</option>
+                <option value="4">Habitación 4</option>
+                <option value="5">Habitación 5</option>
+                <option value="6">Habitación 6</option>
+                <option value="7">Habitación 7</option>
+                <option value="8">Habitación 8</option>
+                <option value="9">Habitación 9</option>
+                <option value="10">Habitación 10</option>
+            </select>
             <div class="invalid-feedback">
                 Proporcione un número de habitación válido.
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Guardar Reservación</button>
         </div>
+        <br />
+        @if (TempData["Mensaje"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["Mensaje"]
+            </div>
+        }
     </form>
+    
 </div>
 
 <script>
@@ -130,6 +158,26 @@
             }, false);
         });
     })();
+
+    function validarCedula(input) {
+        var cedula = input.value.trim();
+        var cedulaRegex = /^[1-9]-\d{4}-\d{4}$/;
+        var errorMessageClass = 'error-message';
+
+        // Elimina el mensaje de error anterior si existe
+        var existingError = input.parentNode.querySelector(`.${errorMessageClass}`);
+        if (existingError) {
+            existingError.remove();
+        }
+
+        if (!cedula.match(cedulaRegex)) {
+            var errorMessage = document.createElement('div');
+            errorMessage.textContent = "El formato de la cédula de identidad es incorrecto. Debe tener el formato 'X-XXXX-XXXX'. Además, solo del 1-9 en el primer dígito se acepta.";
+            errorMessage.classList.add(errorMessageClass);
+            input.parentNode.appendChild(errorMessage);
+            input.value = '';
+        }
+    }
 
     
 </script>

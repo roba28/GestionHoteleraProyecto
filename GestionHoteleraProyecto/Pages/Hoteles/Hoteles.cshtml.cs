@@ -1,52 +1,41 @@
+using GestionHoteleraProyecto.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 
 namespace GestionHoteleraProyecto.Pages.Hoteles
 {
     public class HotelesModel : PageModel
     {
-        public List<Hotel> Hoteles { get; set; }
+        public List<Habitacion> HabitacionesDisponibles { get; set; }
 
         public void OnGet()
         {
-            Hoteles = new List<Hotel>();
+            HabitacionesDisponibles = new List<Habitacion>();
 
-            // Lee los archivos de texto de cada hotel y agrega la información al listado de hoteles
-            string[] archivosHoteles = { "HotelContinentalNewYork.txt", "HotelContinentalRoma.txt", "HotelContinentalMarruecos.txt", "HotelContinentalOsakaTokyo.txt" };
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string queryString = "SELECT * FROM Habitaciones";
 
-            foreach (var archivo in archivosHoteles)
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var lines = System.IO.File.ReadAllLines(archivo);
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
 
-                foreach (var line in lines)
+                while (reader.Read())
                 {
-                    var data = line.Split(',');
-                    var nombre = data[0];
-                    var torre = data[1];
-                    var piso = data[2];
-                    var habitacion = data[3];
-                    var disponibilidad = data[4] == "1";
-
-                    Hoteles.Add(new Hotel
+                    HabitacionesDisponibles.Add(new Habitacion
                     {
-                        Nombre = nombre,
-                        Torre = torre,
-                        Piso = piso,
-                        Habitacion = habitacion,
-                        Disponibilidad = disponibilidad
+                        Nombre = reader["Nombre"].ToString(),
+                        Torre = reader["Torre"].ToString(),
+                        Piso = reader["Piso"].ToString(),
+                        NumeroHabitacion = reader["NumeroHabitacion"].ToString(),
+                        Disponibilidad = Convert.ToBoolean(reader["Disponibilidad"])
                     });
                 }
+
+                reader.Close();
             }
         }
     }
-
-    public class Hotel
-    {
-        public string Nombre { get; set; }
-        public string Torre { get; set; }
-        public string Piso { get; set; }
-        public string Habitacion { get; set; }
-        public bool Disponibilidad { get; set; }
-    }
-
 }

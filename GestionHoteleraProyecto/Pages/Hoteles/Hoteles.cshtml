@@ -8,31 +8,31 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var hotel in Model.Hoteles)
+        @foreach (var habitacion in Model.HabitacionesDisponibles)
         {
             <div class="col-md-6">
                 <table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
-                            <th colspan="2">@hotel.Nombre</th>
+                            <th colspan="2">@habitacion.Nombre</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Torre:</td>
-                            <td>@hotel.Torre</td>
+                            <td>@habitacion.Torre</td>
                         </tr>
                         <tr>
                             <td>Piso:</td>
-                            <td>@hotel.Piso</td>
+                            <td>@habitacion.Piso</td>
                         </tr>
                         <tr>
                             <td>Habitación:</td>
-                            <td>@hotel.Habitacion</td>
+                            <td>@habitacion.NumeroHabitacion</td>
                         </tr>
                         <tr>
                             <td>Disponibilidad:</td>
-                            <td>@(hotel.Disponibilidad ? "Disponible" : "No disponible")</td>
+                            <td>@(habitacion.Disponibilidad ? "Disponible" : "No disponible")</td>
                         </tr>
                     </tbody>
                 </table>

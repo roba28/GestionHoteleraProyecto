@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Linq;
+using Microsoft.Data.SqlClient;
 
 namespace GestionHoteleraProyecto.Pages.Hoteles
 {
@@ -25,57 +26,76 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string pathReservacion = "Reservacion.txt";
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
-            if (System.IO.File.Exists(pathReservacion))
+            // Consulta SQL para eliminar reservaciones con la cédula e hotel especificados
+            string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad AND NombreHotel = @NombreHotel";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var lines = System.IO.File.ReadAllLines(pathReservacion).ToList();
-                var reservacionEncontrada = false;
+                connection.Open();
 
-                // Filtramos las líneas que no coinciden con la cédula y el hotel
-                var nuevasReservaciones = lines.Where(line =>
+                using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                 {
-                    var datosReservacion = line.Split(',');
-                    return !(datosReservacion.Length > 3 && datosReservacion[3] == cedulaIdentidad && datosReservacion[7] == hotel);
-                }).ToList();
+                    command.Parameters.AddWithValue("@CedulaIdentidad", cedulaIdentidad);
+                    command.Parameters.AddWithValue("@NombreHotel", hotel);
 
-                if (nuevasReservaciones.Count < lines.Count)
-                {
-                    System.IO.File.WriteAllLines(pathReservacion, nuevasReservaciones);
-                    reservacionEncontrada = true;
-                }
+                    int rowsAffected = command.ExecuteNonQuery();
 
-                if (reservacionEncontrada)
-                {
-                    CargarReservaciones();
+                    if (rowsAffected > 0)
+                    {
+                        // Reservaciones eliminadas correctamente
+                        CargarReservaciones();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "No se encontraron reservaciones para la cédula y hotel especificados.");
+                    }
                 }
             }
 
-            return RedirectToPage("/Index");
+            return Page();
         }
+
 
         public IActionResult OnPostEliminarTodasReservaciones(string hotel)
         {
-            string pathReservacion = "Reservacion.txt";
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
-            if (System.IO.File.Exists(pathReservacion))
+            // Consulta SQL para eliminar todas las reservaciones
+            string deleteQuery = (hotel.ToLower() == "todos")
+                ? "DELETE FROM Reservaciones"
+                : "DELETE FROM Reservaciones WHERE NombreHotel = @NombreHotel";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var lines = System.IO.File.ReadAllLines(pathReservacion).ToList();
-                var nuevasReservaciones = lines.Where(line =>
-                {
-                    var datosReservacion = line.Split(',');
-                    return !(datosReservacion.Length > 7 && datosReservacion[7] == hotel);
-                }).ToList();
+                connection.Open();
 
-                if (nuevasReservaciones.Count < lines.Count)
+                using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                 {
-                    System.IO.File.WriteAllLines(pathReservacion, nuevasReservaciones);
+                    if (hotel.ToLower() != "todos")
+                    {
+                        command.Parameters.AddWithValue("@NombreHotel", hotel);
+                    }
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        // Reservaciones eliminadas correctamente
+                        CargarReservaciones();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "No se encontraron reservaciones para el hotel especificado.");
+                    }
                 }
             }
 
-            CargarReservaciones();
-            return RedirectToPage("/Index");
+            return Page();
         }
+
+
 
         public IActionResult OnPostEliminarTodasReservacionesPorPersona(string cedulaIdentidad)
         {
@@ -86,42 +106,76 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string pathReservacion = "Reservacion.txt";
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
-            if (System.IO.File.Exists(pathReservacion))
+            // Consulta SQL para eliminar todas las reservaciones de una persona
+            string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var lines = System.IO.File.ReadAllLines(pathReservacion).ToList();
-                var nuevasReservaciones = lines.Where(line =>
-                {
-                    var datosReservacion = line.Split(',');
-                    return !(datosReservacion.Length > 3 && datosReservacion[3] == cedulaIdentidad);
-                }).ToList();
+                connection.Open();
 
-                if (nuevasReservaciones.Count < lines.Count)
+                using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                 {
-                    System.IO.File.WriteAllLines(pathReservacion, nuevasReservaciones);
-                    CargarReservaciones();
+                    command.Parameters.AddWithValue("@CedulaIdentidad", cedulaIdentidad);
+
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        // Reservaciones eliminadas correctamente
+                        CargarReservaciones();
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "No se encontraron reservaciones para la cédula especificada.");
+                    }
                 }
             }
 
-            return RedirectToPage("/Index");
+            return Page();
         }
+
 
         public IActionResult OnPostSalir()
         {
-            return RedirectToPage("/Reservacion");
+            return Page();
         }
 
         private void CargarReservaciones()
         {
             Reservaciones = new List<string>();
-            string pathReservacion = "Reservacion.txt";
 
-            if (System.IO.File.Exists(pathReservacion))
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+
+            string queryString = "SELECT Nombre, PrimerApellido, SegundoApellido, CedulaIdentidad, Nacionalidad, Telefono, CorreoElectronico, NombreHotel, Torre, Piso, NumeroHabitacion FROM Reservaciones";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                Reservaciones = System.IO.File.ReadAllLines(pathReservacion).ToList();
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string nombre = reader["Nombre"].ToString();
+                    string primerApellido = reader["PrimerApellido"].ToString();
+                    string segundoApellido = reader["SegundoApellido"].ToString();
+                    string cedulaIdentidad = reader["CedulaIdentidad"].ToString();
+                    string nacionalidad = reader["Nacionalidad"].ToString();
+                    string telefono = reader["Telefono"].ToString();
+                    string correoElectronico = reader["CorreoElectronico"].ToString();
+                    string nombreHotel = reader["NombreHotel"].ToString();
+                    string torre = reader["Torre"].ToString();
+                    string piso = reader["Piso"].ToString();
+                    string numeroHabitacion = reader["NumeroHabitacion"].ToString();
+
+                    string reservacion = $"{nombre}, {primerApellido}, {segundoApellido}, {cedulaIdentidad}, {nacionalidad}, {telefono}, {correoElectronico}, {nombreHotel}, {torre}, {piso}, {numeroHabitacion}";
+                    Reservaciones.Add(reservacion);
+                }
+
+                reader.Close();
             }
-            
         }
 
         private bool ValidarCedula(string cedula)

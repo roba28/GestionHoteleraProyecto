@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 
 namespace GestionHoteleraProyecto.Pages.Hoteles
 {
@@ -9,77 +10,89 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
         }
 
-        public IActionResult OnPost(string nombre, string primerApellido, string segundoApellido, string cedulaIdentidad, string nacionalidad, string telefono, string correoElectronico, string nombreHotel, string torre, string piso, string numeroHabitacion)
+        public IActionResult OnPost(string nombre, string primerApellido, string segundoApellido, string cedulaIdentidad, string nacionalidad, string telefono, string correoElectronico, string nombreHotel)
         {
-            string path = ""; // Ruta real del archivo del hotel seleccionado
-            string[] lines;
+            string connectionString = "Server=localhost;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
-            switch (nombreHotel)
+            if (!string.IsNullOrEmpty(nombreHotel))
             {
-                case "Hotel Continental de New York":
-                    path = "HotelContinentalNewYork.txt";
-                    break;
-                case "Hotel Continental de Roma":
-                    path = "HotelContinentalRoma.txt";
-                    break;
-                case "Hotel Continental de Marruecos":
-                    path = "HotelContinentalMarruecos.txt";
-                    break;
-                case "Hotel Continental de Osaka Tokyo":
-                    path = "HotelContinentalOsakaTokyo.txt";
-                    break;
-                default:
-                    // Manejar el caso si no se encuentra
-                    break;
-            }
-
-            if (!string.IsNullOrEmpty(path))
-            {
-                lines = System.IO.File.ReadAllLines(path);
-                bool habitacionEncontrada = false;
-
-                // Buscar y reemplazar el último "1" si se encuentra
-                for (int i = lines.Length - 1; i >= 0; i--)
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    if (lines[i].EndsWith(",1"))
-                    {
-                        lines[i] = lines[i].TrimEnd('1') + '0'; // Reemplazar la última '1' por '0'
-                        habitacionEncontrada = true;
+                    connection.Open();
 
-                        string[] datosHabitacion = lines[i].Split(',');
-                        nombreHotel = datosHabitacion[0];
-                        torre = datosHabitacion[1];
-                        piso = datosHabitacion[2];
-                        numeroHabitacion = datosHabitacion[3];
-                        break;
+                    // Buscar la primera habitación disponible del hotel
+                    string primeraHabitacionDisponibleQuery = "SELECT TOP 1 Torre, Piso, NumeroHabitacion FROM Habitaciones " +
+                                                               "WHERE Nombre = @NombreHotel AND Disponibilidad = 1 " +
+                                                               "ORDER BY Torre, Piso, NumeroHabitacion";
+
+                    using (SqlCommand primeraHabitacionCommand = new SqlCommand(primeraHabitacionDisponibleQuery, connection))
+                    {
+                        primeraHabitacionCommand.Parameters.AddWithValue("@NombreHotel", nombreHotel);
+
+                        using (SqlDataReader primeraHabitacionReader = primeraHabitacionCommand.ExecuteReader())
+                        {
+                            if (primeraHabitacionReader.Read())
+                            {
+
+                                // Obtener detalles de la primera habitación disponible
+                                string torre = primeraHabitacionReader["Torre"].ToString();
+                                string piso = primeraHabitacionReader["Piso"].ToString();
+                                string numeroHabitacion = primeraHabitacionReader["NumeroHabitacion"].ToString();
+
+                                // Insertar la reserva en la tabla Reservaciones
+                                string insertQuery = "INSERT INTO Reservaciones (Nombre, PrimerApellido, SegundoApellido, CedulaIdentidad, Nacionalidad, Telefono, CorreoElectronico, NombreHotel, Torre, Piso, NumeroHabitacion) " +
+                                                    "VALUES (@Nombre, @PrimerApellido, @SegundoApellido, @CedulaIdentidad, @Nacionalidad, @Telefono, @CorreoElectronico, @NombreHotel, @Torre, @Piso, @NumeroHabitacion)";
+                                
+                                primeraHabitacionReader.Close();
+
+                                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                                {
+                                    command.Parameters.AddWithValue("@Nombre", nombre);
+                                    command.Parameters.AddWithValue("@PrimerApellido", primerApellido);
+                                    command.Parameters.AddWithValue("@SegundoApellido", segundoApellido);
+                                    command.Parameters.AddWithValue("@CedulaIdentidad", cedulaIdentidad);
+                                    command.Parameters.AddWithValue("@Nacionalidad", nacionalidad);
+                                    command.Parameters.AddWithValue("@Telefono", telefono);
+                                    command.Parameters.AddWithValue("@CorreoElectronico", correoElectronico);
+                                    command.Parameters.AddWithValue("@NombreHotel", nombreHotel);
+                                    command.Parameters.AddWithValue("@Torre", torre);
+                                    command.Parameters.AddWithValue("@Piso", piso);
+                                    command.Parameters.AddWithValue("@NumeroHabitacion", numeroHabitacion);
+
+                                    command.ExecuteNonQuery();
+                                }
+
+                                // Actualizar disponibilidad de la habitación a 0 (no disponible)
+                                string updateDisponibilidadQuery = "UPDATE Habitaciones " +
+                                                                   "SET Disponibilidad = 0 " +
+                                                                   "WHERE Nombre = @NombreHotel AND Torre = @Torre AND Piso = @Piso AND NumeroHabitacion = @NumeroHabitacion";
+
+                                using (SqlCommand updateCommand = new SqlCommand(updateDisponibilidadQuery, connection))
+                                {
+                                    updateCommand.Parameters.AddWithValue("@NombreHotel", nombreHotel);
+                                    updateCommand.Parameters.AddWithValue("@Torre", torre);
+                                    updateCommand.Parameters.AddWithValue("@Piso", piso);
+                                    updateCommand.Parameters.AddWithValue("@NumeroHabitacion", numeroHabitacion);
+
+                                    updateCommand.ExecuteNonQuery();
+                                }
+
+                            }
+                            else
+                            {
+                                // No hay habitaciones disponibles en todo ese hotel, muestra una alerta
+                                TempData["Mensaje"] = "Lo sentimos, no hay habitaciones disponibles en este momento en el hotel " + nombreHotel;
+                                return Page();
+                            }
+
+                        }
                     }
                 }
-
-                System.IO.File.WriteAllLines(path, lines);
-
-                if (habitacionEncontrada)
-                {
-                    // Agregar la información de la reserva a un archivo de texto separado llamdo reservacio.txt
-                    string pathReservacion = "Reservacion.txt";
-                    using (StreamWriter sw = new StreamWriter(pathReservacion, true))
-                    {
-                        sw.Write($"{nombre},");
-                        sw.Write($"{primerApellido},");
-                        sw.Write($"{segundoApellido},");
-                        sw.Write($"{cedulaIdentidad},");
-                        sw.Write($"{nacionalidad},");
-                        sw.Write($"{telefono},");
-                        sw.Write($"{correoElectronico},");
-                        sw.Write($"{nombreHotel},");
-                        sw.Write($"{torre},");
-                        sw.Write($"{piso},");
-                        sw.WriteLine($"{numeroHabitacion}");
-                    }
-                }
             }
 
-            return RedirectToPage("/Index"); // Redirige a la página principal después de guardar la reservación
+            return RedirectToPage("/Hoteles/Reservacion");
         }
+
 
 
     }

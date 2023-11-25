@@ -1,0 +1,150 @@
+﻿@page
+@model GestionHoteleraProyecto.Pages.Hoteles.BuscarHabitacionDisponibleModel
+@{
+}
+
+
+<div class="container">
+    <h1 class="mt-4 mb-4 text-center">Buscar habitación por persona</h1>
+
+    @if (Model.Habitaciones.Any())
+    {
+        <div style="max-height: 300px; overflow-y: auto;">
+            <table class="table">
+                <h1>Lista de Habitaciones</h1>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Torre</th>
+                        <th>Piso</th>
+                        <th>Número de Habitación</th>
+                        <th>Disponibilidad</th>
+                        <!-- Agrega otras columnas según tus necesidades -->
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var habitacion in Model.Habitaciones)
+                    {
+                        var datosHabitacion = habitacion.Split(',');
+                        <tr>
+                            <td>@datosHabitacion[0]</td>
+                            <td>@datosHabitacion[1]</td>
+                            <td>@datosHabitacion[2]</td>
+                            <td>@datosHabitacion[3]</td>
+                            <td>@datosHabitacion[4]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="no-reservaciones">No hay habitaciones disponibles.</p>
+    }
+
+
+
+    <form method="post" class="m-3 p-3 border border-primary" asp-page-handler="BuscarHabitaciones">
+        <div class="form-group">
+            <label for="torre">Torre:</label>
+            <select id="torre" name="Torre" class="form-control" required>
+                <option value="1">Torre 1</option>
+                <option value="2">Torre 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="piso">Piso:</label>
+            <select id="piso" name="Piso" class="form-control" required>
+                <option value="1">Piso 1</option>
+                <option value="2">Piso 2</option>
+                <option value="3">Piso 3</option>
+                <option value="4">Piso 4</option>
+                <option value="5">Piso 5</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="numeroHabitacion">Número de Habitación:</label>
+            <select id="numeroHabitacion" name="NumeroHabitacion" class="form-control" required>
+                <option value="1">Habitación 1</option>
+                <option value="2">Habitación 2</option>
+                <option value="3">Habitación 3</option>
+                <option value="4">Habitación 4</option>
+                <option value="5">Habitación 5</option>
+                <option value="6">Habitación 6</option>
+                <option value="7">Habitación 7</option>
+                <option value="8">Habitación 8</option>
+                <option value="9">Habitación 9</option>
+                <option value="10">Habitación 10</option>
+            </select>
+        </div>
+
+
+        <div class="form-group" style="padding-top: 1rem;">
+            <button type="submit" class="btn btn-primary">Buscar Habitación por persona</button>
+        </div>
+
+    </form>
+
+    <form method="get" class="m-3 p-3 border border-primary" asp-page-handler="FiltrarTodos">
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Filtrar todos.</button>
+        </div>
+    </form>
+
+    <style>
+        /* Estilos para la tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        /* Estilos para el mensaje de "No hay reservaciones disponibles" */
+        .no-reservaciones {
+            font-size: 18px;
+            color: #777;
+        }
+    </style>
+
+    <script>
+        (function () {
+            'use strict';
+
+            var forms = document.querySelectorAll('.needs-validation');
+
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</div>

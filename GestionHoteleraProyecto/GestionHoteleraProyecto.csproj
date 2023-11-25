@@ -10,4 +10,8 @@
     <None Include="wwwroot\Imagenes\HotelNewYork.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+  </ItemGroup>
+
 </Project>

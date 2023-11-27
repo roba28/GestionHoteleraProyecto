@@ -12,7 +12,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
         public IActionResult OnPost(string nombre, string primerApellido, string segundoApellido, string cedulaIdentidad, string nacionalidad, string telefono, string correoElectronico, string nombreHotel)
         {
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             if (!string.IsNullOrEmpty(nombreHotel))
             {
@@ -84,7 +84,9 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                                 // No hay habitaciones disponibles en todo ese hotel, muestra una alerta
                                 TempData["Mensaje"] = "Lo sentimos, no hay habitaciones disponibles en este momento en el hotel " + nombreHotel;
                                 TempData["Tipo"] = "error";
+
                                 return Page();
+
                             }
 
                         }

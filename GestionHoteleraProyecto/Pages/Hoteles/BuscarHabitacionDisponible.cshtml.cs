@@ -18,7 +18,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
             Habitaciones = new List<string>();
 
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             string queryString = "SELECT Nombre, Torre, Piso, NumeroHabitacion, Disponibilidad FROM Habitaciones";
 
@@ -59,7 +59,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
             Habitaciones = new List<string>();
 
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             string queryString = "SELECT Nombre, Torre, Piso, NumeroHabitacion, Disponibilidad FROM Habitaciones WHERE Torre = @Torre AND Piso = @Piso AND NumeroHabitacion = @NumeroHabitacion";
 

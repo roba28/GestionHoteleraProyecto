@@ -12,7 +12,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
         public IActionResult OnPost(string nombre, string primerApellido, string segundoApellido, string cedulaIdentidad, string nacionalidad, string telefono, string correoElectronico, string nombreHotel, string torre, string piso, string numeroHabitacion)
         {
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
 
             if (!string.IsNullOrEmpty(nombreHotel))
@@ -77,11 +77,15 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
                                     updateCommand.ExecuteNonQuery();
                                 }
+                                TempData["Mensaje"] = "Reserva guardada con éxito";
+                                TempData["Tipo"] = "Ok";
                             }
                             else
                             {
                                 // La habitación no está disponible, muestra una alerta
                                 TempData["Mensaje"] = "Lo sentimos, la habitación no está disponible en este momento.";
+                                TempData["Mensaje"] = "Lo sentimos, no hay habitaciones disponibles en este momento en el hotel " + nombreHotel;
+                                TempData["Tipo"] = "error";
                                 return Page();
                             }
                         }
@@ -92,6 +96,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                     }
                 }
             }
+
 
             return RedirectToPage("/Hoteles/Reservacion");
         }

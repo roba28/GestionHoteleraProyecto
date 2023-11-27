@@ -26,9 +26,11 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+
 
             // Consulta SQL para eliminar reservaciones con la cédula e hotel especificados
+
             string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad AND NombreHotel = @NombreHotel";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -60,7 +62,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
         public IActionResult OnPostEliminarTodasReservaciones(string hotel)
         {
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             // Consulta SQL para eliminar todas las reservaciones
             string deleteQuery = (hotel.ToLower() == "todos")
@@ -106,7 +108,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
                 return Page();
             }
 
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             // Consulta SQL para eliminar todas las reservaciones de una persona
             string deleteQuery = "DELETE FROM Reservaciones WHERE CedulaIdentidad = @CedulaIdentidad";
@@ -146,7 +148,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
         {
             Reservaciones = new List<string>();
 
-            string connectionString = "Server=ADSP-13207\\MSSQLSERVER01;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
+            string connectionString = "Server=CRC-LP-0109\\SQLEXPRESS;Database=GestionHotelera;Trusted_Connection=True;TrustServerCertificate=true;";
 
             string queryString = "SELECT Nombre, PrimerApellido, SegundoApellido, CedulaIdentidad, Nacionalidad, Telefono, CorreoElectronico, NombreHotel, Torre, Piso, NumeroHabitacion FROM Reservaciones";
 
@@ -176,6 +178,7 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
 
                 reader.Close();
             }
+            TempData["Mensaje"] = "Lo sentimos, no hay habitaciones disponibles en este momento en el hotel " + Reservaciones;
         }
 
         private bool ValidarCedula(string cedula)
@@ -184,7 +187,6 @@ namespace GestionHoteleraProyecto.Pages.Hoteles
             {
                 return false;
             }
-
             return true;
         }
 
